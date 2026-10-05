@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "csb-trusted-node"
+version = "0.1.0"
+description = "Operational backbone for an IHO Crowdsourced Bathymetry Trusted Node: vessel registry, B-12 metadata, submission ledger and provenance."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Daniel Fry", email = "dfry@lhzn.io" },
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: GIS",
+]
+dependencies = [
+  # WIBL conversion and QA core. Pinned to an exact commit (upstream
+  # development as of 2026-08-24, mirrored on our fork); bump as its own change.
+  "wibl-python @ git+https://github.com/dfry-lhzn/WIBL@ec97f5fa40c887146ee55908c213b6bd00947bae#subdirectory=wibl-python",
+  # B-12 schema validation (same pin as wibl-python).
+  "csbschema~=1.1.2",
+  "pydantic[email]>=2.0",
+  "click>=8.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "mypy>=1.10",
+  "ruff",
+  "pre-commit",
+]
+docs = [
+  "sphinx>=7",
+  "myst-parser",
+  "furo",
+]
+
+[project.scripts]
+csb-node = "csb_trusted_node.cli:cli"
+
+[project.urls]
+Issues = "https://github.com/lhzn-io/csb-trusted-node/issues"
+Source = "https://github.com/lhzn-io/csb-trusted-node"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/csb_trusted_node"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["csbschema.*", "wibl.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
