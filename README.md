@@ -14,8 +14,9 @@ logger and its `wibl-python` processing library from the UNH Center for Coastal
 and Ocean Mapping / NOAA-UNH Joint Hydrographic Center. WIBL handles decoding and
 conversion; this repository handles node operations.
 
-> **Status:** pre-alpha. Long Horizon Observatory is preparing a Trusted Node
-> application. Nothing here implies IHO or DCDB endorsement.
+> **Status: candidate node, pre-alpha.** Long Horizon Observatory is not
+> currently an IHO DCDB Trusted Node. This is the software we are building to
+> operate one, ahead of an application. Nothing here implies IHO or DCDB endorsement.
 
 ## What it does today
 
