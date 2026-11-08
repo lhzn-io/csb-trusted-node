@@ -19,9 +19,9 @@ classifiers = [
   "Topic :: Scientific/Engineering :: GIS",
 ]
 dependencies = [
-  # WIBL conversion and QA core. Pinned to an exact commit (upstream
-  # development as of 2026-08-24, mirrored on our fork); bump as its own change.
-  "wibl-python @ git+https://github.com/dfry-lhzn/WIBL@ec97f5fa40c887146ee55908c213b6bd00947bae#subdirectory=wibl-python",
+  # WIBL conversion and QA core. Pinned to an exact commit of upstream
+  # development (2026-10-29, with our PRs #134 and #138 to #140); bump as its own change.
+  "wibl-python @ git+https://github.com/CCOMJHC/WIBL@30c80dc346e2eb6247f2755e31a839da9f897f6d#subdirectory=wibl-python",
   # B-12 schema validation (same pin as wibl-python).
   "csbschema~=1.1.2",
   "pydantic[email]>=2.0",

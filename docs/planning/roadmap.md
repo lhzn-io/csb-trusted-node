@@ -39,12 +39,12 @@ Durable, public roadmap. Day-to-day task tracking lives in the internal agent-la
 
 ## Upstream WIBL dependencies
 
-Open PRs on `CCOMJHC/WIBL` that this node benefits from. Bump the `wibl-python`
-pin once they merge.
+PRs on `CCOMJHC/WIBL` that this node benefits from. The `wibl-python` pin
+follows upstream `development`; bump it as each one merges.
 
-- [CCOMJHC/WIBL#134](https://github.com/CCOMJHC/WIBL/pull/134): command processor version sync
-- [CCOMJHC/WIBL#138](https://github.com/CCOMJHC/WIBL/pull/138): v1.3 packet unpacking
-- [CCOMJHC/WIBL#139](https://github.com/CCOMJHC/WIBL/pull/139): `wibl_to_ascii` lineage
-- [CCOMJHC/WIBL#140](https://github.com/CCOMJHC/WIBL/pull/140): hydrographic depth-axis plotting
-- [CCOMJHC/WIBL#113](https://github.com/CCOMJHC/WIBL/pull/113): WPA3/PMF support
-- [CCOMJHC/WIBL#114](https://github.com/CCOMJHC/WIBL/pull/114): station-mode reconnect loop
+- [x] [CCOMJHC/WIBL#134](https://github.com/CCOMJHC/WIBL/pull/134): command processor version sync (merged 2026-10-29)
+- [x] [CCOMJHC/WIBL#138](https://github.com/CCOMJHC/WIBL/pull/138): v1.3 packet unpacking (merged 2026-10-29)
+- [x] [CCOMJHC/WIBL#139](https://github.com/CCOMJHC/WIBL/pull/139): `wibl_to_ascii` lineage (merged 2026-10-29)
+- [x] [CCOMJHC/WIBL#140](https://github.com/CCOMJHC/WIBL/pull/140): hydrographic depth-axis plotting (merged 2026-10-29)
+- [ ] [CCOMJHC/WIBL#113](https://github.com/CCOMJHC/WIBL/pull/113): WPA3/PMF support (firmware)
+- [ ] [CCOMJHC/WIBL#114](https://github.com/CCOMJHC/WIBL/pull/114): station-mode reconnect loop (firmware)

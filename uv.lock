@@ -417,7 +417,7 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "ruff", marker = "extra == 'dev'" },
     { name = "sphinx", marker = "extra == 'docs'", specifier = ">=7" },
-    { name = "wibl-python", git = "https://github.com/dfry-lhzn/WIBL?subdirectory=wibl-python&rev=ec97f5fa40c887146ee55908c213b6bd00947bae" },
+    { name = "wibl-python", git = "https://github.com/CCOMJHC/WIBL?subdirectory=wibl-python&rev=30c80dc346e2eb6247f2755e31a839da9f897f6d" },
 ]
 provides-extras = ["dev", "docs"]
 
@@ -2018,7 +2018,7 @@ wheels = [
 [[package]]
 name = "wibl-python"
 version = "1.3.0"
-source = { git = "https://github.com/dfry-lhzn/WIBL?subdirectory=wibl-python&rev=ec97f5fa40c887146ee55908c213b6bd00947bae#ec97f5fa40c887146ee55908c213b6bd00947bae" }
+source = { git = "https://github.com/CCOMJHC/WIBL?subdirectory=wibl-python&rev=30c80dc346e2eb6247f2755e31a839da9f897f6d#30c80dc346e2eb6247f2755e31a839da9f897f6d" }
 dependencies = [
     { name = "boto3" },
     { name = "click" },
