@@ -7,7 +7,7 @@ Durable, public roadmap. Day-to-day task tracking lives in the internal agent-la
 - [x] Package skeleton, `wibl-python` pinned to an exact commit
 - [x] B-12 `trustedNode` model checked against CSB schema 3.1.0 (2024-04)
 - [x] Submission ledger state machine with per-step hashes
-- [ ] CI: ruff, mypy and pytest on GitHub Actions (uv)
+- [x] CI: ruff, mypy and pytest on GitHub Actions (uv)
 - [ ] Sphinx docs site skeleton published
 
 ## Phase 1: Ingest and conversion

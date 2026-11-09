@@ -32,7 +32,7 @@ dependencies = [
 dev = [
   "pytest>=8",
   "mypy>=1.10",
-  "ruff",
+  "ruff==0.16.9", # same as the pre-commit hook
   "pre-commit",
 ]
 docs = [
