@@ -7,6 +7,7 @@ sent, and when. Storage is behind the :class:`LedgerStore` protocol so the backe
 """
 
 import hashlib
+import sqlite3
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from enum import StrEnum
@@ -99,3 +100,70 @@ class InMemoryLedgerStore:
 
     def by_state(self, state: SubmissionState) -> list[SubmissionRecord]:
         return [r for r in self._records.values() if r.state is state]
+
+
+class SqliteLedgerStore:
+    """Durable single-file store (stdlib ``sqlite3``). One writer at a time."""
+
+    def __init__(self, path: Path) -> None:
+        self._db = sqlite3.connect(path)
+        self._db.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS records (
+                submission_id TEXT PRIMARY KEY,
+                unique_vessel_id TEXT NOT NULL,
+                state TEXT NOT NULL
+            );
+            CREATE TABLE IF NOT EXISTS events (
+                submission_id TEXT NOT NULL REFERENCES records(submission_id),
+                seq INTEGER NOT NULL,
+                state TEXT NOT NULL,
+                at TEXT NOT NULL,
+                sha256 TEXT,
+                note TEXT NOT NULL,
+                PRIMARY KEY (submission_id, seq)
+            );
+            CREATE INDEX IF NOT EXISTS records_state ON records(state);
+            """
+        )
+
+    def close(self) -> None:
+        self._db.close()
+
+    def put(self, record: SubmissionRecord) -> None:
+        with self._db:
+            self._db.execute(
+                "INSERT INTO records VALUES (?, ?, ?) ON CONFLICT(submission_id) "
+                "DO UPDATE SET unique_vessel_id = excluded.unique_vessel_id, state = excluded.state",
+                (record.submission_id, record.unique_vessel_id, record.state.value),
+            )
+            self._db.execute("DELETE FROM events WHERE submission_id = ?", (record.submission_id,))
+            self._db.executemany(
+                "INSERT INTO events VALUES (?, ?, ?, ?, ?, ?)",
+                [
+                    (record.submission_id, i, e.state.value, e.at.isoformat(), e.sha256, e.note)
+                    for i, e in enumerate(record.history)
+                ],
+            )
+
+    def get(self, submission_id: str) -> SubmissionRecord | None:
+        row = self._db.execute(
+            "SELECT unique_vessel_id FROM records WHERE submission_id = ?", (submission_id,)
+        ).fetchone()
+        if row is None:
+            return None
+        events = [
+            LedgerEvent(SubmissionState(state), datetime.fromisoformat(at), sha, note)
+            for state, at, sha, note in self._db.execute(
+                "SELECT state, at, sha256, note FROM events WHERE submission_id = ? ORDER BY seq",
+                (submission_id,),
+            )
+        ]
+        return SubmissionRecord(submission_id, row[0], events)
+
+    def by_state(self, state: SubmissionState) -> list[SubmissionRecord]:
+        ids = [
+            r[0]
+            for r in self._db.execute("SELECT submission_id FROM records WHERE state = ?", (state.value,))
+        ]
+        return [rec for i in ids if (rec := self.get(i)) is not None]

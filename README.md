@@ -24,6 +24,10 @@ conversion; this repository handles node operations.
   CSB schema 3.1.0 (2024-04) as shipped in [`csbschema`](https://pypi.org/project/csbschema/).
 - `csb-node vessel-id`: allocates `uniqueVesselID`s under this node's prefix.
 - `csb-node validate`: checks a B-12 GeoJSON file against the schema.
+- `csb-node ingest`: converts new WIBL files with `wibl-python`, repairs faulty GNSS
+  times against the logger clock, keeps one depth source, removes every sounding near
+  the vessel's home berth, validates the result and records each step in a SQLite
+  ledger. Configuration lives outside the repository (see `configs/node.example.toml`).
 - A submission ledger (`received` → `converted` → `validated` → `submitted` →
   `accepted`) that records a timestamp and content hash at every step.
 

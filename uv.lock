@@ -388,6 +388,7 @@ source = { editable = "." }
 dependencies = [
     { name = "click" },
     { name = "csbschema" },
+    { name = "numpy" },
     { name = "pydantic", extra = ["email"] },
     { name = "wibl-python" },
 ]
@@ -412,6 +413,7 @@ requires-dist = [
     { name = "furo", marker = "extra == 'docs'" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.10" },
     { name = "myst-parser", marker = "extra == 'docs'" },
+    { name = "numpy", specifier = ">=2.0" },
     { name = "pre-commit", marker = "extra == 'dev'" },
     { name = "pydantic", extras = ["email"], specifier = ">=2.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },

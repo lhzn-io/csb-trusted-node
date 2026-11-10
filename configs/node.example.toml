@@ -1,0 +1,38 @@
+# Example node configuration for `csb-node ingest --config`.
+# Copy it outside the repository and fill it in: the real file names a vessel and
+# points at a private home-position file, so it must never be committed.
+
+[node]
+provider_organization_name = "Long Horizon Observatory"
+provider_email = "csb@example.org"
+data_license = "CC BY 4.0"
+
+[vessel]
+# Allocate with `csb-node vessel-id --prefix LHZN`, once per vessel, and keep it.
+unique_vessel_id = "LHZN-00000000-0000-4000-8000-000000000000"
+type = "Recreational"
+# name = "..."           # optional; omit to keep the vessel anonymous
+# length = 10            # whole metres
+vertical_reference_of_depth = "Transducer"
+position_reference = "GNSS"
+# NMEA 2000 source address of the depth to keep when the bus carries more than one.
+depth_source = 5
+# Set true only once the sounder and GNSS offsets have been measured on the vessel.
+position_offsets_documented = false
+
+[vessel.sounder]
+make = "Example"
+model = "Example 200 kHz"
+position = [0.0, 0.0, 0.0]   # metres from the position reference point, NED
+draft = 0.0
+frequency = 200000
+
+[privacy]
+# JSON with "lat" and "lon" of the home berth. Everything within radius_m is removed
+# before a document is written to shareable/.
+home_file = "/path/to/private/home.json"
+radius_m = 2000
+
+[conversion]
+# Soundings with no kept GNSS fix within this many seconds are dropped.
+max_fix_gap_s = 2.0

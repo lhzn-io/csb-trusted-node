@@ -20,6 +20,8 @@ Do not vendor or fork WIBL code into this repo. Upstream fixes go to
   force-add them.
 - This repo is public. Keep fleet hostnames, IPs, credentials, DCDB provider keys
   and vessel owner contact details out of it.
+- Never commit real tracks, home positions or a real node config. Tests use the
+  synthetic mid-ocean track in `tests/synth.py`.
 
 ## Layout
 
@@ -28,7 +30,13 @@ Do not vendor or fork WIBL code into this repo. Upstream fixes go to
 | `src/csb_trusted_node/metadata.py` | B-12 `trustedNode` model and `uniqueVesselID` allocation |
 | `src/csb_trusted_node/validation.py` | The single entry point to `csbschema` |
 | `src/csb_trusted_node/ledger.py` | Submission state machine, history and the `LedgerStore` protocol |
+| `src/csb_trusted_node/config.py` | Node configuration (TOML, kept outside the repo) and the private home position |
+| `src/csb_trusted_node/gnss_time.py` | GNSS time repair against the logger's elapsed clock (pure numpy) |
+| `src/csb_trusted_node/convert.py` | One WIBL file to a B-12 document via `wibl-python`, with the repair hooked in |
+| `src/csb_trusted_node/privacy.py` | Home-berth trim |
+| `src/csb_trusted_node/ingest.py` | Directory ingest: receive, convert, trim, validate, ledger |
 | `src/csb_trusted_node/cli.py` | `csb-node` CLI (click) |
+| `configs/node.example.toml` | Example node configuration (placeholders only) |
 | `docs/src/` | Sphinx (MyST) user and operator docs |
 
 ## Schema authority

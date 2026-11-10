@@ -12,11 +12,14 @@ Durable, public roadmap. Day-to-day task tracking lives in the internal agent-la
 
 ## Phase 1: Ingest and conversion
 
-- [ ] Ingest WIBL files and record them as `received` with a SHA-256
-- [ ] Convert through `wibl-python` (time interpolation, then B-12 GeoJSON) to `converted`
-- [ ] Attach `platform` and `processing` blocks from the vessel registry
-- [ ] Validate with `csbschema`, then mark `validated` or `rejected` with reasons
-- [ ] Durable `LedgerStore` backend (SQLite first)
+- [x] Ingest WIBL files and record them as `received` with a SHA-256
+- [x] Convert through `wibl-python` (time interpolation, then B-12 GeoJSON) to `converted`
+- [x] GNSS time repair: re-time fixes whose time disagrees with the logger clock
+- [x] Home-berth privacy trim before anything is written to `shareable/`
+- [x] Attach `platform` and `processing` blocks (from the node config for now)
+- [x] Validate with `csbschema`, then mark `validated` or `rejected` with reasons
+- [x] Durable `LedgerStore` backend (SQLite first)
+- [ ] Upstream a packet-filter hook to `wibl-python` so the time repair needs no patching
 
 ## Phase 2: Vessel and provider registry
 
